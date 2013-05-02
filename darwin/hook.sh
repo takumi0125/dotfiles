@@ -1,33 +1,33 @@
 #!/bin/bash
 
 #
-# MAC OS X LOGIN HOOK
+# MAC OS X ログインフック
 #
-# LoginHook runs under the super user privilege!
+# LoginHook スクリプトは管理者権限で実行されます!
 #
-# To add this LoginHook script:
+# スクリプトのインストール:
 # chmod +x /path/to/hook.sh
 # sudo defaults write com.apple.loginwindow LoginHook /path/to/hook.sh
 #
-# To confirm added:
+# インストール状況の確認:
 # sudo defaults read com.apple.loginwindow LoginHook
 #
-# To remove it:
+# スクリプトの削除:
 # sudo defaults delete com.apple.loginwindow LoginHook
 
 
-logger "LoginHook: Starting for ${1}"
+logger "LoginHook: ユーザー ${1} のログインフックを開始します。"
 
 
 ##
-# Variables
+# 変数定義
 
 USER=${1}
 eval HOMELOC=~${USER}
 
 
 ##
-# Ramdisk configuration
+# Ramdisk 設定
 
 RD_SIZE=262144  # 128 MB!!
 RD_MOUNTPOINT=/Volumes/ramdisk
@@ -46,7 +46,7 @@ fi
 
 
 ##
-# Caches to the ramdisk
+# キャッシュディレクトリを Ramdisk 上にマウント
 
 RAMDISK_CACHE_PATH=${RD_MOUNTPOINT}/Caches
 
@@ -78,7 +78,7 @@ for (( I=0; I < ${#UA_RAMDISK_PATHS[@]}; ++I ))
 do
     mkdir -p ${UA_RAMDISK_PATHS[${I}]}
 
-    # Check if UA cache directory is symbolic linked to the ram disk
+    # キャッシュディレクトリがシンボリックリンクか確認
     if [ ! -d ${UA_CACHE_PATHS[${I}]} ] || [ ! -L ${UA_CACHE_PATHS[${I}]} ]
     then
         rm -rf ${UA_CACHE_PATHS[${I}]}
@@ -89,17 +89,7 @@ done
 chmod -R u=rwX,g=rwX,o=rwX ${RAMDISK_CACHE_PATH}
 
 
-##
-# Other optimisations
-
-# Disable built-in keyboard
-if [ 'C02GH2A9DV7M' == $(system_profiler SPHardwareDataType | awk '/Serial/ {print $4}') ]
-then
-    kextunload /System/Library/Extensions/AppleUSBTopCase.kext/Contents/PlugIns/AppleUSBTCKeyboard.kext
-fi
-
-
-# Done
+# 終了処理
 unset \
     USER \
     HOMELOC \

@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #
-# MAC OS X BOOTSTRAP
+# MAC OS X ブートストラップ
 #
-# This script will be run from `bootstrap.sh` if using Mac OS X
+# このスクリプトは Mac OS X 使用時に `bootstrap.sh` から実行されます。
 
 
 ##
-# Variables
+# 変数定義
 
 CWD=$(pwd)
 
@@ -20,48 +20,48 @@ DOTFILES_DARWIN_PATH="${HOME}/.dotfiles/darwin"
 
 
 ##
-# Main process
+# 主処理
 
-# Turn off local Time Machine snapshots
+# ローカル Time Machine スナップショットを無効化
 sudo tmutil disablelocal
 
-# Enable `locate` command
+# `locate` コマンド用 DB 作成
 #sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
 
-# Install LoginHook
+# LoginHook のインストール
 if ! sudo defaults read com.apple.loginwindow LoginHook &> /dev/null
 then
     sudo defaults write com.apple.loginwindow LoginHook ${DOTFILES_DARWIN_PATH}/hook.sh
 fi
 
-# Disable `.DS_Store` on network drives
+# ネットワークドライブ上での `.DS_Store` 作成を無効化
 if ! defaults read com.apple.desktopservices DSDontWriteNetworkStores &> /dev/null
 then
     defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 fi
 
-# Make hidden files visible
+# 隠しファイル (ドットファイル) を表示
 if ! defaults read com.apple.finder AppleShowAllFiles &> /dev/null
 then
     defaults write com.apple.finder AppleShowAllFiles -bool true
     killall Finder
 fi
 
-# Make Kotoeri use only single width space
+# Kotoeri のデフォルト空白文字を全角から半角へ
 defaults write com.apple.inputmethod.Kotoeri zhsy -dict-add " " -bool no
 killall Kotoeri
 
-# Disable the shadow from the screenshots
+# スクリーンショットの影を無効化
 if ! defaults read com.apple.screencapture disable-shadow &> /dev/null
 then
     defaults write com.apple.screencapture disable-shadow -bool true
     killall SystemUIServer
 fi
 
-# Current directory to ~/Downloads
+# カレントディレクトリを ~/Downloads へ
 cd ${HOME}/Downloads
 
-# Install XQuartz
+# XQuartz のインストール
 if [ ! -d /Applications/Utilities/XQuartz.app ]
 then
     curl -L -O http://xquartz.macosforge.org/downloads/SL/XQuartz-2.7.4.dmg
@@ -70,16 +70,7 @@ then
     hdiutil detach /Volumes/XQuartz
 fi
 
-# Install ClamXav
-if [ ! -d /Applications/ClamXav.app ]
-then
-    curl -L -O http://www.clamxav.com/downloads/ClamXav_2.3.6.dmg
-    hdiutil attach ClamXav_2.3.6.dmg
-    cp -R /Volumes/ClamXav/ClamXav.app /Applications/
-    hdiutil detach /Volumes/ClamXav
-fi
-
-# Install Asepsis
+# Asepsis のインストール
 if ! which asepsisctl &> /dev/null
 then
     curl -L -O http://downloads.binaryage.com/Asepsis-1.3.dmg
@@ -88,26 +79,17 @@ then
     hdiutil detach /Volumes/Asepsis
 fi
 
-# Install TotalTerminal
-if [ ! -d /Applications/TotalTerminal.app ]
-then
-    curl -L -O http://downloads.binaryage.com/TotalTerminal-1.3.dmg
-    hdiutil attach TotalTerminal-1.3.dmg
-    sudo installer -pkg /Volumes/TotalTerminal/TotalTerminal.pkg -target /
-    hdiutil detach /Volumes/TotalTerminal
-fi
-
-# Reset current working directory
+# カレントディレクトリをリセット
 cd ${CWD}
 
-# Check if Xxode is installed
+# Xcode インストール有無確認
 if [ ! -d /Applications/Xcode.app ]
 then
-    echo "${TEXT_RED}Xcode not found. Aborted.${TEXT_RESET}"
+    echo "${TEXT_RED}Xcode が見つかりません。中止します。${TEXT_RESET}"
     exit 1
 fi
 
-# Xcode license agreement
+# Xcode ライセンス同意
 # TODO: Skip if already agreed
 xcodebuild -license
 
@@ -118,10 +100,10 @@ then
     sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.8.xctoolchain
 fi
 
-# Install Homebrew if not exists
+# Homebrew のインストール
 if ! which brew &> /dev/null
 then
-    echo 'Homebrew not found. Installing...'
+    echo 'Homebrew が見つかりません。インストールします...'
 
     HOMEBREW_PATH="${HOME}/.homebrew"
 
@@ -131,11 +113,11 @@ then
     export PATH="${HOMEBREW_PATH}/bin:${PATH}"
     unset HOMEBREW_PATH
 
-    echo "Homebrew installed to $(which brew)"
+    echo "Homebrew がインストールされました: $(which brew)"
 fi
 
-# Install fundamental dependencies through Homebrew
-echo 'Installing fundamental dependencies...'
+# Homebrew 経由で基本的な依存パッケージをインストール
+echo '基本的なライブラリをインストールします...'
 brew update
 brew upgrade
 brew install \
@@ -154,10 +136,10 @@ brew install \
     scons
 brew cleanup
 
-# Install Node.js through nodebrew if not exists
+# nodebrew 経由で Node.js をインストール
 if ! which node &> /dev/null
 then
-    echo 'Node.js not found. Installing...'
+    echo 'Node.js が見つかりません。インストールします...'
 
     curl -L git.io/nodebrew | perl - setup
 
@@ -166,13 +148,13 @@ then
     nodebrew install-binary stable
     nodebrew use stable
 
-    echo "Node.js installed to $(which node)"
+    echo "Node.js がインストールされました: $(which node)"
 fi
 
-# Setup default lagunage
+# デフォルト言語設定
 #sudo languagesetup
 
-# Done
+# 終了処理
 unset \
     CWD \
     TEXT_BOLD \

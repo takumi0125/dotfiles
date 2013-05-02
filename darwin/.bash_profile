@@ -1,53 +1,44 @@
 #
-# MAC OS X LOGIN SHELL CUSTOMISATION
+# MAC OS X ログインシェルカスタマイズ
 #
-# NOTE 1:
-# Both of `.bash_profile` and `.profile` cannot be existed at once. The
-# higher priority is given to `.bash_profile`, and it overrides all the
-# setting of `.profile` if both of them exist.
+# メモ 1:
+# `.bash_profile` と `.profile` は同時に存在できません。優先順位は
+# `.bash_profile` が高く設定されているため。両方存在した場合は、こちらの
+# 設定内容が優先されます。
 #
-# NOTE 2:
-# There are some differences betweetn `.bash_profile` and `.bashrc`.
-# The former is executed to configure your shell when you login. On the
-# other hand, the latter is executed everytime you open a new terminal
-# window.
+# メモ 2:
+# `.bash_profile` と `.bashrc` の違いは、前者がログイン時に読み込まれる
+# のに対して、後者は新規ターミナルを開く度に読み込まれます。
 #
-# NOTE 3:
-# To reload `.bash_profile` or `.bashrc`:
+# メモ 3:
+# `.bash_profile` や `.bashrc` の設定を読み込み直すコマンド:
 # source ~/.bash_profile
 
 
 ##
-# Environment variables
+# 環境変数
 
-# Set up `locale` properly
-export LANG=en_GB.UTF-8
-export LC_ALL=en_GB.UTF-8
+# 言語 `locale` の設定
+export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
 
-# Glob ignore pattern
+# Glob 無視パターンに `.` と `..` を指定
 export GLOBIGNORE=.:..
 
-# Enable 256 colour terminal for Solarized theme
+# 256 色ターミナルの有効化 (Solarized テーマ使用のため)
 export TERM=xterm-256color
 
-# Colourify `ls` output
+# `ls` コマンドのハイライト
 export CLICOLOR=1
 export LSCOLORS=Exfxcxdxbxegedabagacad
 
-# Colourify `grep` output
+# `grep` コマンドのハイライト
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;37;41'
 
 
 ##
-# Environment paths
-
-# Private
-export PATH="${HOME}/Developer/bin:${PATH}"
-export MANPATH="${HOME}/Developer/share/man:${MANPATH}"
-
-# PHP Pear
-export PATH="${PATH}:${HOME}/Developer/opt/pear/bin"
+# 環境変数パス
 
 # MacPorts
 #export PATH="/opt/local/bin:/opt/local/sbin:${PATH}"
@@ -73,17 +64,17 @@ export PATH="${NODEBREW_ROOT}/current/bin:${PATH}"
 
 
 ##
-# Additional settings
+# 追加設定
 
-# Prevent file lost by redirection
-# Use `>|` instead of `>`
+# リダイレクトによるファイル内容消失を保護
+# リダイレクトで上書きしたい場合は `>` の代わりに `>|` を使う
 set -o noclobber
 
 
 ##
-# Additional aliases
+# 追加エイリアス
 
-# Prevent file/directory lost
+# CLI 操作ミスによるファイル/ディレクトリ消失を保護
 alias mv='mv -i'
 
 if ! which rmtrash &> /dev/null
@@ -94,26 +85,26 @@ else
     alias rmdir='rmtrash'
 fi
 
-# Set Sublime Text 2 alias
+# Sublime Text 2 エイリアス
 #alias subl="${HOME}/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 
-# OS X Wi-Fi utility
+# OS X Wi-Fi ユーティリティ
 alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport'
 
 
 ##
-# Editor settings
+# エディタ設定
 
-# Set default text editor and also for Git
+# CLI のデフォルトテキストエディタを設定
 export EDITOR='vim'
 
-# Set alternate text editor
+# 代替テキストエディタを設定
 #export ALTERNATE_EDITOR='subl -w'
 
 
 ##
-# Generic Colouriser
-# `brew install grc` first!
+# Generic Colouriser によるシンタックスハイライト
+# `brew install grc` でインストールしておく事
 
 if [ -f "$(brew --prefix)/etc/grc.bashrc" ]
 then
@@ -122,8 +113,7 @@ fi
 
 
 ##
-# Git shell optimisation
-# `brew unlink git && brew link git` after upgrading
+# Git シェル補助
 
 if [ -f "$(brew --prefix)/etc/bash_completion.d/git-completion.bash" ] \
     && [ -f "$(brew --prefix)/etc/bash_completion.d/git-prompt.sh" ] \
@@ -136,34 +126,7 @@ then
 fi
 
 
-##
-# gibo completion
-# https://github.com/simonwhitaker/gitignore-boilerplates
-
-if [ -f "$(brew --prefix)/etc/bash_completion.d/gibo-completion.bash" ]
-then
-    source "$(brew --prefix)/etc/bash_completion.d/gibo-completion.bash"
-fi
-
-
-##
-# gisty
-# https://github.com/swdyh/gisty
-
-export GISTY_DIR="${HOME}/Dropbox/Workspace/com.github.gist"
-
-
-##
-# Settings for Amazon EC2 API Tools
-# http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/SettingUp_CommandLine.html#set-aws-credentials
-
-export JAVA_HOME="$(/usr/libexec/java_home)"
-export EC2_HOME="${HOME}/Developer/opt/ec2-api-tools-1.6.5.3"
-export EC2_URL='https://ec2.ap-northeast-1.amazonaws.com'
-export PATH="${PATH}:${EC2_HOME}/bin"
-
-
-# Load credential settings
+# `.bash_creds` 読み込み
 if [ -f "${HOME}/.bash_creds" ]
 then
     source "${HOME}/.bash_creds"
