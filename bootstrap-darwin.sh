@@ -126,7 +126,7 @@ brew install \
     autoconf \
     automake \
     cmake \
-    gcc49 \
+    gcc48 \
     gettext \
     git \
     git-extras \
