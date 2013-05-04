@@ -113,6 +113,8 @@ then
     export PATH="${HOMEBREW_PATH}/bin:${PATH}"
     unset HOMEBREW_PATH
 
+    brew tap homebrew/versions  # GCC インストール用にリポジトリ追加
+
     echo "Homebrew がインストールされました: $(which brew)"
 fi
 
@@ -124,6 +126,7 @@ brew install \
     autoconf \
     automake \
     cmake \
+    gcc49 \
     gettext \
     git \
     git-extras \
