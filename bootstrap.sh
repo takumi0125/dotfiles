@@ -94,7 +94,7 @@ then
     echo "${TEXT_BOLD}Git リポジトリからファイルを取得します...${TEXT_RESET}"
 
     # `git` コマンドの有無確認
-    if ! which git > /dev/null
+    if ! which git &> /dev/null
     then
         echo "${TEXT_RED}Git コマンドが見つかりません。中止します。${TEXT_RESET}"
         exit 1
