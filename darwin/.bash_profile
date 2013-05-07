@@ -57,10 +57,12 @@ export PATH="$(brew --prefix)/share/python:${PATH}"
 
 # RubyGems
 export PATH="$(brew --prefix)/opt/ruby/bin:${PATH}"
+export MANPATH="$(brew --prefix)/opt/ruby/share/man:${MANPATH}"
 
 # Node.js nodebrew
 export NODEBREW_ROOT="${HOME}/.nodebrew"
 export PATH="${NODEBREW_ROOT}/current/bin:${PATH}"
+export MANPATH="${NODEBREW_ROOT}/current/share/man:${MANPATH}"
 
 
 ##
