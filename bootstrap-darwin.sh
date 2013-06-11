@@ -22,6 +22,8 @@ DOTFILES_DARWIN_PATH="${HOME}/.dotfiles/darwin"
 ##
 # 主処理
 
+echo "${TEXT_BOLD}Mac OS X の最適化を開始します...${TEXT_RESET}"
+
 # ローカル Time Machine スナップショットを無効化
 sudo tmutil disablelocal
 
@@ -58,6 +60,9 @@ then
     killall SystemUIServer
 fi
 
+
+echo "${TEXT_BOLD}基本的なアプリケーションのインストールを開始します...${TEXT_RESET}"
+
 # カレントディレクトリを ~/Downloads へ
 cd ${HOME}/Downloads
 
@@ -82,6 +87,9 @@ fi
 # カレントディレクトリをリセット
 cd ${CWD}
 
+
+echo "${TEXT_BOLD}開発環境のセットアップを開始します...${TEXT_RESET}"
+
 # Xcode インストール有無確認
 if [ ! -d /Applications/Xcode.app ]
 then
@@ -101,57 +109,164 @@ then
 fi
 
 # Homebrew のインストール
+HOMEBREW="${HOME}/.homebrew"
+
 if ! which brew &> /dev/null
 then
-    echo 'Homebrew が見つかりません。インストールします...'
-
-    HOMEBREW_PATH="${HOME}/.homebrew"
-
-    mkdir -p ${HOMEBREW_PATH}
-    curl -L https://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C ${HOMEBREW_PATH}
-
-    export PATH="${HOMEBREW_PATH}/bin:${PATH}"
-    unset HOMEBREW_PATH
-
-    brew tap homebrew/versions  # GCC インストール用にリポジトリ追加
-
-    echo "Homebrew がインストールされました: $(which brew)"
+    export PATH="${HOMEBREW}/bin:${PATH}"
 fi
 
+if [ ! -d ${HOMEBREW} ]
+then
+    mkdir -p ${HOMEBREW}
+    curl -L https://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C ${HOMEBREW}
+
+    brew tap homebrew/versions
+    brew tap homebrew/dupes
+    brew tap josegonzalez/homebrew-php
+fi
+
+unset HOMEBREW
+
 # Homebrew 経由で基本的な依存パッケージをインストール
-echo '基本的なライブラリをインストールします...'
 brew update
 brew upgrade
-brew install \
-    autoconf \
-    automake \
-    cmake \
-    gcc48 \
-    gettext \
-    git \
-    git-extras \
-    grc \
-    openssl \
-    pkg-config \
-    python \
-    rmtrash \
-    ruby \
-    scons
+
+BREWS=(
+    'autoconf'
+    'automake'
+    'cmake'
+    'gcc48'
+    'gettext'
+    'git'
+    'git-extras'
+    'grc'
+    'libpeg'
+    'libpng'
+    'mcrypt'
+    'mercurial'
+    'openssl'
+    'php-build'
+    'pkg-config'
+    're2c'
+    'readline'
+    'rmtrash'
+    'ruby-build'
+    'scons'
+)
+
+for BREW in "${BREWS[@]}"
+do
+    FORMULA=$(echo ${BREW} | cut -d ' ' -f 1)
+
+    if ! brew list | grep ${FORMULA} &> /dev/null
+    then
+        brew install ${BREW}
+    fi
+
+    unset FORMULA
+done
+
+unset BREW BREWS
+
 brew cleanup
 
-# nodebrew 経由で Node.js をインストール
-if ! which node &> /dev/null
+# phpenv 経由で PHP をインストール
+if ! which phpenv &> /dev/null
 then
-    echo 'Node.js が見つかりません。インストールします...'
+    PHPENV="${HOME}/.phpenv"
 
+    if [ ! -d ${PHPENV} ]
+    then
+        git clone git://github.com/phpenv/phpenv.git ${PHPENV}
+    else
+        cd ${PHPENV}
+        git pull
+        cd ${CWD}
+    fi
+
+    export PATH="${PHPENV}/bin:${PATH}"
+
+    if [ ! -d ${PHPENV}/versions/5.4.10 ]
+    then
+        PHP_BUILD_CONFIGURE_OPTS="--with-jpeg-dir=$(brew --prefix libjpeg) \
+                                  --with-png-dir=$(brew --prefix libpng) \
+                                  --with-openssl=$(brew --prefix openssl) \
+                                  --with-mcrypt=$(brew --prefix mcrypt) \
+                                  --with-apxs2=/usr/sbin/apxs" \
+        php-build 5.4.10 ${PHPENV}/versions/5.4.10
+    fi
+
+    phpenv rehash
+    phpenv global 5.4.10
+
+    unset PHPENV
+fi
+
+# pyenv 経由で Python をインストール
+if ! which pyenv &> /dev/null
+then
+    PYENV="${HOME}/.pyenv"
+
+    if [ ! -d ${PYENV} ]
+    then
+        git clone git://github.com/yyuu/pyenv.git ${PYENV}
+    else
+        cd ${PYENV}
+        git pull
+        cd ${CWD}
+    fi
+
+    export PATH="${PYENV}/bin:${PATH}"
+
+    CFLAGS="-I$(brew --prefix readline)/include" \
+    LDFLAGS="-L$(brew --prefix readline)/lib" \
+    pyenv install 2.7.5
+
+    pyenv rehash
+    pyenv global 2.7.5
+
+    unset PYENV
+fi
+
+# rbenv 経由で Ruby をインストール
+if ! which rbenv &> /dev/null
+then
+    RBENV="${HOME}/.rbenv"
+
+    if [ ! -d ${RBENV} ]
+    then
+        git clone git://github.com/sstephenson/rbenv.git ${RBENV}
+    else
+        cd ${RBENV}
+        git pull
+        cd ${CWD}
+    fi
+
+    export PATH="${RBENV}/bin:${PATH}"
+
+    if [ ! -d ${RBENV}/versions/2.0.0-p195 ]
+    then
+        CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl) \
+                        --with-readline-dir=$(brew --prefix readline)" \
+        ruby-build 2.0.0-p195 ${RBENV}/versions/2.0.0-p195
+    fi
+
+    rbenv rehash
+    rbenv global 2.0.0-p195
+
+    unset RBENV
+fi
+
+# nodebrew 経由で Node.js をインストール
+if ! which nodebrew &> /dev/null
+then
     curl -L git.io/nodebrew | perl - setup
 
     export PATH="${HOME}/.nodebrew/current/bin:${PATH}"
 
     nodebrew install-binary stable
     nodebrew use stable
-
-    echo "Node.js がインストールされました: $(which node)"
 fi
 
 # デフォルト言語設定

@@ -52,14 +52,20 @@ export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:${PKG_CONFIG_PATH}"
 export PKG_CONFIG_PATH="${HOME}/.homebrew/lib/pkgconfig:${PKG_CONFIG_PATH}"
 
-# PyPI
-export PATH="$(brew --prefix)/share/python:${PATH}"
+# phpenv
+# `phpenv` は `rbenv` の PATH で上書きされる事
+export PATH="${HOME}/.phpenv/bin:${PATH}"
+eval "$(phpenv init -)"
 
-# RubyGems
-export PATH="$(brew --prefix)/opt/ruby/bin:${PATH}"
-export MANPATH="$(brew --prefix)/opt/ruby/share/man:${MANPATH}"
+# pyenv
+export PATH="${HOME}/.pyenv/bin:${PATH}"
+eval "$(pyenv init -)"
 
-# Node.js nodebrew
+# rbenv
+export PATH="${HOME}/.rbenv/bin:${PATH}"
+eval "$(rbenv init -)"
+
+# nodebrew
 export NODEBREW_ROOT="${HOME}/.nodebrew"
 export PATH="${NODEBREW_ROOT}/current/bin:${PATH}"
 export MANPATH="${NODEBREW_ROOT}/current/share/man:${MANPATH}"
