@@ -99,13 +99,12 @@ fi
 
 # Xcode ライセンス同意
 # TODO: Skip if already agreed
-xcodebuild -license
+sudo xcodebuild -license
 
-# Xcode hotfix for apxs
-# http://blog.hgomez.net/blog/2012/10/15/mountain-lion-apxs/
-if [ '10.8.3' == $(system_profiler SPSoftwareDataType | awk '/System Version/ {print $5}') ]
+# Command Line Tools のインストール
+if [ ! -d $(xcode-select --print-path) ]
 then
-    sudo ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain /Applications/Xcode.app/Contents/Developer/Toolchains/OSX10.8.xctoolchain
+    xcode-select --install
 fi
 
 # Homebrew のインストール
