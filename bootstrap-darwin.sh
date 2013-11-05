@@ -257,15 +257,28 @@ then
     unset RBENV
 fi
 
-# nodebrew 経由で Node.js をインストール
-if ! which nodebrew &> /dev/null
+
+# nenv 経由で Node.js をインストール
+if ! which nenv &> /dev/null
 then
-    curl -L git.io/nodebrew | perl - setup
+    NENV="${HOME}/.nenv"
 
-    export PATH="${HOME}/.nodebrew/current/bin:${PATH}"
+    if [ ! -d ${NENV} ]
+    then
+        git clone git://github.com/ryuone/nenv.git ${NENV}
+    else
+        cd ${NENV}
+        git pull
+        cd ${CWD}
+    fi
 
-    nodebrew install-binary stable
-    nodebrew use stable
+    export PATH="${NENV}/bin:${PATH}"
+
+    nenv install 0.10.10
+    nenv rehash
+    nenv global 0.10.10
+
+    unset NENV
 fi
 
 # デフォルト言語設定

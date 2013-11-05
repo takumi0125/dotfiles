@@ -65,10 +65,9 @@ eval "$(pyenv init -)"
 export PATH="${HOME}/.rbenv/bin:${PATH}"
 eval "$(rbenv init -)"
 
-# nodebrew
-export NODEBREW_ROOT="${HOME}/.nodebrew"
-export PATH="${NODEBREW_ROOT}/current/bin:${PATH}"
-export MANPATH="${NODEBREW_ROOT}/current/share/man:${MANPATH}"
+# nenv
+export PATH="${HOME}/.nenv/bin:${PATH}"
+eval "$(nenv init -)"
 
 
 ##
