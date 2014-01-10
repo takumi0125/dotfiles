@@ -69,6 +69,9 @@ eval "$(rbenv init -)"
 export PATH="${HOME}/.nenv/bin:${PATH}"
 eval "$(nenv init -)"
 
+NODE_VER=`node -v`
+export PATH="${HOME}/.nenv/versions/${NODE_VER/v/}/bin:${PATH}"
+unset NODE_VER
 
 ##
 # 追加設定
