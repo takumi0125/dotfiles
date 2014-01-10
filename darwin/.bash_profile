@@ -92,6 +92,9 @@ else
     alias rmdir='rmtrash'
 fi
 
+# ls -la
+alias ll='ls -la'
+
 # Sublime Text 2 エイリアス
 #alias subl="${HOME}/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 

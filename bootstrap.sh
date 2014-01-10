@@ -5,9 +5,6 @@
 #
 # インストールと更新:
 # bash <(curl -L https://raw.github.com/sonicjam/dotfiles/master/bootstrap.sh)
-#
-# インストールと更新 (Git なし):
-# curl -L https://github.com/japboy/sonicjam/archive/master.tar.gz | tar zxvf - -C ~/.dotfiles
 # bash ~/.dotfile/bootstrap.sh sync
 
 
@@ -22,7 +19,7 @@ TEXT_RED=$(tput setaf 1)
 TEXT_GREEN=$(tput setaf 2)
 TEXT_RESET=$(tput sgr0)
 
-DOTFILES_REPO='https://github.com/sonicjam/dotfiles.git'
+DOTFILES_REPO='https://github.com/takumi0125/dotfiles.git'
 DOTFILES_PATH="${HOME}/.dotfiles"
 
 
