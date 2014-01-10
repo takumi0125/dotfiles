@@ -69,17 +69,17 @@ cd ${HOME}/Downloads
 # XQuartz のインストール
 if [ ! -d /Applications/Utilities/XQuartz.app ]
 then
-    curl -L -O http://xquartz.macosforge.org/downloads/SL/XQuartz-2.7.4.dmg
-    hdiutil attach XQuartz-2.7.4.dmg
-    sudo installer -pkg /Volumes/XQuartz-2.7.4/XQuartz.pkg -target /
-    hdiutil detach /Volumes/XQuartz-2.7.4
+    curl -L -O http://xquartz.macosforge.org/downloads/SL/XQuartz-2.7.5.dmg
+    hdiutil attach XQuartz-2.7.5.dmg
+    sudo installer -pkg /Volumes/XQuartz-2.7.5/XQuartz.pkg -target /
+    hdiutil detach /Volumes/XQuartz-2.7.5
 fi
 
 # Asepsis のインストール
 if ! which asepsisctl &> /dev/null
 then
-    curl -L -O http://downloads.binaryage.com/Asepsis-1.3.2.dmg
-    hdiutil attach Asepsis-1.3.2.dmg
+    curl -L -O http://downloads.binaryage.com/Asepsis-1.4.dmg
+    hdiutil attach Asepsis-1.4.dmg
     sudo installer -pkg /Volumes/Asepsis/Asepsis.mpkg -target /
     hdiutil detach /Volumes/Asepsis
 fi
