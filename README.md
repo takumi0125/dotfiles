@@ -9,7 +9,7 @@ dotfiles
 インストールと更新は下記のコマンドをコピーアンドペーストして実行して下さい:
 
 ```bash
-bash <(curl -L https://raw.github.com/sonicjam/dotfiles/master/bootstrap.sh)
+bash <(curl -L https://raw.github.com/takumi0125/dotfiles/master/bootstrap.sh)
 ```
 
 Git を使用せずインストール/更新を行う場合は `~/.dotfiles` にリポジトリの中身を展開し、下記コマンドを実行して下さい:
