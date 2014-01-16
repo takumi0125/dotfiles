@@ -23,6 +23,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'ctrlp.vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'jade.vim'
+NeoBundle 'leafgarland/typescript-vim'
 
 NeoBundle 'w0ng/vim-hybrid'
 
