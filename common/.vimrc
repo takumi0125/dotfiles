@@ -16,10 +16,10 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'The-NERD-tree'
 NeoBundle 'The-NERD-Commenter'
 NeoBundle 'mattn/zencoding-vim'
-NeoBundle 'taichouchou2/surround.vim'
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'taichouchou2/html5.vim'
-NeoBundle 'taichouchou2/vim-javascript' " jQuery syntax追加
+NeoBundle 'othree/html5.vim'
+NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'ctrlp.vim'
 NeoBundle 'tpope/vim-surround'
@@ -82,8 +82,8 @@ set softtabstop=2 " 連続した空白に対してタブキーやバックスペ
 set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に入力された行の末尾に合わせて次の行のインデントを増減する
 
-set backupdir=$HOME/vimbackup " バックアップファイルを作るディレクトリ
-set directory=$HOME/vimbackup "スワップファイル用のディレクトリ
+set backupdir=$HOME/.vimbackup " バックアップファイルを作るディレクトリ
+set directory=$HOME/.vimbackup "スワップファイル用のディレクトリ
 set browsedir=buffer "ファイル保存ダイアログの初期ディレクトリをバッファファイル位置に設定
 
 "-----------------------------
