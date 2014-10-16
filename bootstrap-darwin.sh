@@ -152,6 +152,8 @@ BREWS=(
     'rmtrash'
     'ruby-build'
     'scons'
+    'rben'
+    'pyenv'
 )
 
 for BREW in "${BREWS[@]}"
