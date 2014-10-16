@@ -69,17 +69,17 @@ cd ${HOME}/Downloads
 # XQuartz のインストール
 if [ ! -d /Applications/Utilities/XQuartz.app ]
 then
-    curl -L -O http://xquartz.macosforge.org/downloads/SL/XQuartz-2.7.5.dmg
-    hdiutil attach XQuartz-2.7.5.dmg
-    sudo installer -pkg /Volumes/XQuartz-2.7.5/XQuartz.pkg -target /
-    hdiutil detach /Volumes/XQuartz-2.7.5
+    curl -L -O http://xquartz.macosforge.org/downloads/SL/XQuartz-2.7.7.dmg
+    hdiutil attach XQuartz-2.7.7.dmg
+    sudo installer -pkg /Volumes/XQuartz-2.7.7/XQuartz.pkg -target /
+    hdiutil detach /Volumes/XQuartz-2.7.7
 fi
 
 # Asepsis のインストール
 if ! which asepsisctl &> /dev/null
 then
-    curl -L -O http://downloads.binaryage.com/Asepsis-1.4.dmg
-    hdiutil attach Asepsis-1.4.dmg
+    curl -L -O http://downloads.binaryage.com/Asepsis-1.5.dmg
+    hdiutil attach Asepsis-1.5.dmg
     sudo installer -pkg /Volumes/Asepsis/Asepsis.mpkg -target /
     hdiutil detach /Volumes/Asepsis
 fi
@@ -169,93 +169,6 @@ done
 unset BREW BREWS
 
 brew cleanup
-
-# phpenv 経由で PHP をインストール
-if ! which phpenv &> /dev/null
-then
-    PHPENV="${HOME}/.phpenv"
-
-    if [ ! -d ${PHPENV} ]
-    then
-        git clone git://github.com/phpenv/phpenv.git ${PHPENV}
-    else
-        cd ${PHPENV}
-        git pull
-        cd ${CWD}
-    fi
-
-    export PATH="${PHPENV}/bin:${PATH}"
-
-    if [ ! -d ${PHPENV}/versions/5.4.10 ]
-    then
-        PHP_BUILD_CONFIGURE_OPTS="--with-jpeg-dir=$(brew --prefix libjpeg) \
-                                  --with-png-dir=$(brew --prefix libpng) \
-                                  --with-openssl=$(brew --prefix openssl) \
-                                  --with-mcrypt=$(brew --prefix mcrypt) \
-                                  --with-apxs2=/usr/sbin/apxs" \
-        php-build 5.4.10 ${PHPENV}/versions/5.4.10
-    fi
-
-    phpenv rehash
-    phpenv global 5.4.10
-
-    unset PHPENV
-fi
-
-# pyenv 経由で Python をインストール
-if ! which pyenv &> /dev/null
-then
-    PYENV="${HOME}/.pyenv"
-
-    if [ ! -d ${PYENV} ]
-    then
-        git clone git://github.com/yyuu/pyenv.git ${PYENV}
-    else
-        cd ${PYENV}
-        git pull
-        cd ${CWD}
-    fi
-
-    export PATH="${PYENV}/bin:${PATH}"
-
-    CFLAGS="-I$(brew --prefix readline)/include" \
-    LDFLAGS="-L$(brew --prefix readline)/lib" \
-    pyenv install 2.7.5
-
-    pyenv rehash
-    pyenv global 2.7.5
-
-    unset PYENV
-fi
-
-# rbenv 経由で Ruby をインストール
-if ! which rbenv &> /dev/null
-then
-    RBENV="${HOME}/.rbenv"
-
-    if [ ! -d ${RBENV} ]
-    then
-        git clone git://github.com/sstephenson/rbenv.git ${RBENV}
-    else
-        cd ${RBENV}
-        git pull
-        cd ${CWD}
-    fi
-
-    export PATH="${RBENV}/bin:${PATH}"
-
-    if [ ! -d ${RBENV}/versions/2.0.0-p195 ]
-    then
-        CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl) \
-                        --with-readline-dir=$(brew --prefix readline)" \
-        ruby-build 2.0.0-p195 ${RBENV}/versions/2.0.0-p195
-    fi
-
-    rbenv rehash
-    rbenv global 2.0.0-p195
-
-    unset RBENV
-fi
 
 
 # nenv 経由で Node.js をインストール

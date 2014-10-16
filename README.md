@@ -1,7 +1,7 @@
 dotfiles
 ========
 
-よくある dotfiles リポジトリの一つです。社内の PC (主に Mac OS X で) CLI 環境を比較的簡単に構築できるようにする目的で作成しています。
+よくある dotfiles リポジトリの一つです。PC (主に Mac OS X) で CLI 環境を比較的簡単に構築できるようにする目的で作成しています。
 
 インストール
 ------------
@@ -18,30 +18,6 @@ Git を使用せずインストール/更新を行う場合は `~/.dotfiles` に
 bash ~/.dotfiles/bootstrap.sh sync
 ```
 
-### .bash_creds
-
-追加の設定ファイルとして `~/.bash_creds` というファイルを作成しておくと、自動で読み込まれます。用途としては Git リポジトリで共有できないような環境変数値 (シークレットトークン等) を格納するのに使用します。
-
-`.bash_creds` の例は下記です:
-
-```bash
-#
-# 証明書
-
-
-##
-# Amazon EC2 API Tools
-
-export AWS_ACCESS_KEY='XXXXXXXXXXXXXXXXXXXX'
-export AWS_SECRET_KEY='XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-
-
-##
-# gisty
-
-export GISTY_ACCESS_TOKEN='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-```
-
 必要環境
 --------
 
@@ -50,10 +26,6 @@ export GISTY_ACCESS_TOKEN='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 * Mac OS X 10.7 (Lion) 以上
 * [Xcode](http://itunes.apple.com/en/app/xcode/id497799835)
 * [Command Line Tools](http://developer.apple.com/xcode/) (Xcode SDK をインストールしたくない場合)
-
-### Linux
-
-* Ubuntu 12.04 辺りに対応したい (希望的観測)
 
 機能
 ----
@@ -74,7 +46,7 @@ export GISTY_ACCESS_TOKEN='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 10. Xcode のライセンス同意画面を表示します。
 11. Homebrew をインストールします。
 12. Homebrew で基本的なライブラリをインストールします。
-13. nodebrew で Node.js をインストールします。
+13. nenv で Node.js をインストールします。
 14. `~/.dotfiles/darwin` ディレクトリのドットファイルをホームディレクトリにシンボリックリンクします。
 
 ### グルーバルな初期処理
@@ -92,8 +64,8 @@ export GISTY_ACCESS_TOKEN='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
     * MacPorts より開発コミュニティが活発な Homebrew をパッケージマネージャーとして使用します。
     * グローバル環境をなるべく綺麗な状態に保つため、`~/.homebrew` にインストールします。
     * *Git*, *Python*, *Ruby* を Homebrew 経由で最新版をインストールします。グローバルの Python や Ruby 環境を綺麗な状態に保つのも目的です。
-* [nodebrew](https://github.com/hokaccha/nodebrew) を使用して [Node.js](http://nodejs.org/) をインストールします。
-    * Node.js は `~/.nodebrew` 下にインストールされます。
+* [nenv](https://github.com/ryuone/nenv) を使用して [Node.js](http://nodejs.org/) をインストールします。
+    * Node.js は `~/.nenv` 下にインストールされます。
     * Node.js はまた開発途上のためバージョンアップが頻繁なので、簡単に以前のバージョンや最新バージョンへ切り替えられるようにするのが目的です。
 
 ### グローバルな設定変更

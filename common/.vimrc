@@ -13,7 +13,6 @@ NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'The-NERD-tree'
 NeoBundle 'The-NERD-Commenter'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'taichouchou2/surround.vim'
@@ -109,12 +108,6 @@ inoremap < <><Left>
 "-----------------------------↲ 
 " プラグイン設定↲   
 "-----------------------------
-" NERD Tree
-let g:NERDTreeShowHidden=1
-let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
-autocmd vimenter * if !argc() | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
 " NERD Commenter
 let NERDSpaceDelims = 1
 nmap ,, <Plug>NERDCommenterToggle

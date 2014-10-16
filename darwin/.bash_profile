@@ -52,19 +52,6 @@ export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:${PKG_CONFIG_PATH}"
 export PKG_CONFIG_PATH="${HOME}/.homebrew/lib/pkgconfig:${PKG_CONFIG_PATH}"
 
-# phpenv
-# `phpenv` は `rbenv` の PATH で上書きされる事
-export PATH="${HOME}/.phpenv/bin:${PATH}"
-eval "$(phpenv init -)"
-
-# pyenv
-export PATH="${HOME}/.pyenv/bin:${PATH}"
-eval "$(pyenv init -)"
-
-# rbenv
-export PATH="${HOME}/.rbenv/bin:${PATH}"
-eval "$(rbenv init -)"
-
 # nenv
 export PATH="${HOME}/.nenv/bin:${PATH}"
 eval "$(nenv init -)"
