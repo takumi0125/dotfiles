@@ -52,26 +52,16 @@ export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:${PKG_CONFIG_PATH}"
 export PKG_CONFIG_PATH="${HOME}/.homebrew/lib/pkgconfig:${PKG_CONFIG_PATH}"
 
-# phpenv
-# `phpenv` は `rbenv` の PATH で上書きされる事
-export PATH="${HOME}/.phpenv/bin:${PATH}"
-eval "$(phpenv init -)"
-
-# pyenv
-export PATH="${HOME}/.pyenv/bin:${PATH}"
-eval "$(pyenv init -)"
 
 # rbenv
-export PATH="${HOME}/.rbenv/bin:${PATH}"
 eval "$(rbenv init -)"
+
+# pyenv
+eval "$(pyenv init -)"
 
 # nenv
 export PATH="${HOME}/.nenv/bin:${PATH}"
 eval "$(nenv init -)"
-
-NODE_VER=`node -v`
-export PATH="${HOME}/.nenv/versions/${NODE_VER/v/}/bin:${PATH}"
-unset NODE_VER
 
 ##
 # 追加設定
@@ -136,11 +126,4 @@ then
     source "$(brew --prefix)/etc/bash_completion.d/git-prompt.sh"
     source "$(brew --prefix)/etc/bash_completion.d/git-extras"
     PS1='\h:\W$(__git_ps1 " (%s)") \u\$ '
-fi
-
-
-# `.bash_creds` 読み込み
-if [ -f "${HOME}/.bash_creds" ]
-then
-    source "${HOME}/.bash_creds"
 fi
