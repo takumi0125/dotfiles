@@ -95,7 +95,4 @@ bash ~/.dotfiles/bootstrap.sh sync
 * [github/gitignore · GitHub](https://github.com/github/gitignore)
 * [seebi/dircolors-solarized · GitHub](https://github.com/seebi/dircolors-solarized)
 
-ライセンス
-----------
 
-Distributed under the [Unlicense](http://unlicense.org/).
