@@ -46,7 +46,7 @@ bash ~/.dotfiles/bootstrap.sh sync
 10. Xcode のライセンス同意画面を表示します。
 11. Homebrew をインストールします。
 12. Homebrew で基本的なライブラリをインストールします。
-13. nenv で Node.js をインストールします。
+13. ndenv で Node.js をインストールします。
 14. `~/.dotfiles/darwin` ディレクトリのドットファイルをホームディレクトリにシンボリックリンクします。
 
 ### グルーバルな初期処理
@@ -64,8 +64,8 @@ bash ~/.dotfiles/bootstrap.sh sync
     * MacPorts より開発コミュニティが活発な Homebrew をパッケージマネージャーとして使用します。
     * グローバル環境をなるべく綺麗な状態に保つため、`~/.homebrew` にインストールします。
     * *Git*, *Python*, *Ruby* を Homebrew 経由で最新版をインストールします。グローバルの Python や Ruby 環境を綺麗な状態に保つのも目的です。
-* [nenv](https://github.com/ryuone/nenv) を使用して [Node.js](http://nodejs.org/) をインストールします。
-    * Node.js は `~/.nenv` 下にインストールされます。
+* [ndenv](https://github.com/ryuone/ndenv) を使用して [Node.js](http://nodejs.org/) をインストールします。
+    * Node.js は `~/.ndenv` 下にインストールされます。
     * Node.js はまた開発途上のためバージョンアップが頻繁なので、簡単に以前のバージョンや最新バージョンへ切り替えられるようにするのが目的です。
 
 ### グローバルな設定変更

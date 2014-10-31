@@ -59,9 +59,9 @@ eval "$(rbenv init -)"
 # pyenv
 eval "$(pyenv init -)"
 
-# nenv
-export PATH="${HOME}/.nenv/bin:${PATH}"
-eval "$(nenv init -)"
+# ndenv
+export PATH="${HOME}/.ndenv/bin:${PATH}"
+eval "$(ndenv init -)"
 
 ##
 # 追加設定

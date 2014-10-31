@@ -173,28 +173,28 @@ unset BREW BREWS
 brew cleanup
 
 
-# nenv 経由で Node.js をインストール
-if ! which nenv &> /dev/null
+# ndenv 経由で Node.js をインストール
+if ! which ndenv &> /dev/null
 then
-    NENV="${HOME}/.nenv"
+    NDENV="${HOME}/.ndenv"
 
-    if [ ! -d ${NENV} ]
+    if [ ! -d ${NDENV} ]
     then
-        git clone git://github.com/ryuone/nenv.git ${NENV}
+        git clone git://github.com:riywo/ndenv.git ${NDENV}
     else
-        cd ${NENV}
+        cd ${NDENV}
         git pull
         cd ${CWD}
     fi
 
-    export PATH="${NENV}/bin:${PATH}"
+    export PATH="${NDENV}/bin:${PATH}"
 
-    nenv install 0.10.10
-    nenv rehash
-    nenv global 0.10.10
+    ndenv install 0.10.10
+    ndenv rehash
+    ndenv global 0.10.10
 
-    unset NENV
-fi
+    unset NDENV
+  fi
 
 # デフォルト言語設定
 #sudo languagesetup
