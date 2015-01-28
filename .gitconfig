@@ -12,10 +12,13 @@
 	cmd = vim -d $LOCAL $MERGED $REMOTE
 	keepbackup = false
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/takumi/.gitignore
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[user]
+	name = takumi
+	email = gouache0125@gmail.com
