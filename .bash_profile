@@ -88,12 +88,6 @@ fi
 # ls -la
 alias ll='ls -la'
 
-# Sublime Text 2 エイリアス
-#alias subl="${HOME}/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
-
-# OS X Wi-Fi ユーティリティ
-alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport'
-
 
 ##
 # エディタ設定
@@ -127,3 +121,15 @@ then
     source "$(brew --prefix)/etc/bash_completion.d/git-extras"
     PS1='\h:\W$(__git_ps1 " (%s)") \u\$ '
 fi
+
+# ndenv
+export PATH="$HOME/.ndenv/bin:$PATH"
+eval "$(ndenv init -)"
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
