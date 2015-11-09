@@ -40,10 +40,6 @@ export GREP_COLOR='1;37;41'
 ##
 # 環境変数パス
 
-# MacPorts
-#export PATH="/opt/local/bin:/opt/local/sbin:${PATH}"
-#export MANPATH="/opt/local/share/man:${MANPATH}"
-
 # Homebrew
 export PATH="${HOME}/.homebrew/sbin:${PATH}"
 export PATH="${HOME}/.homebrew/bin:${PATH}"
@@ -52,16 +48,6 @@ export PKG_CONFIG_PATH="/opt/X11/lib/pkgconfig"
 export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:${PKG_CONFIG_PATH}"
 export PKG_CONFIG_PATH="${HOME}/.homebrew/lib/pkgconfig:${PKG_CONFIG_PATH}"
 
-
-# rbenv
-eval "$(rbenv init -)"
-
-# pyenv
-eval "$(pyenv init -)"
-
-# ndenv
-export PATH="${HOME}/.ndenv/bin:${PATH}"
-eval "$(ndenv init -)"
 
 ##
 # 追加設定
@@ -95,9 +81,6 @@ alias ll='ls -la'
 # CLI のデフォルトテキストエディタを設定
 export EDITOR='vim'
 
-# 代替テキストエディタを設定
-#export ALTERNATE_EDITOR='subl -w'
-
 
 ##
 # Generic Colouriser によるシンタックスハイライト
@@ -107,7 +90,6 @@ if [ -f "$(brew --prefix)/etc/grc.bashrc" ]
 then
     source "$(brew --prefix)/etc/grc.bashrc"
 fi
-
 
 ##
 # Git シェル補助
@@ -122,14 +104,6 @@ then
     PS1='\h:\W$(__git_ps1 " (%s)") \u\$ '
 fi
 
-# ndenv
-export PATH="$HOME/.ndenv/bin:$PATH"
-eval "$(ndenv init -)"
-
-# rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
-# pyenv
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
+# anyenv
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
